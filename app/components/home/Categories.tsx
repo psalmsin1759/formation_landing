@@ -1,8 +1,15 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { staggerContainer, fadeUp, scaleIn, viewportConfig } from "@/app/lib/animations";
+import { fadeUp, slideFromRight, viewportConfig } from "@/app/lib/animations";
 import { categories } from "@/app/lib/data";
+
+const staggerFromRight = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.07, delayChildren: 0.05 },
+  },
+};
 
 export default function Categories() {
   return (
@@ -28,13 +35,13 @@ export default function Categories() {
 
         <motion.div
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
-          variants={staggerContainer}
+          variants={staggerFromRight}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
         >
           {categories.map((cat) => (
-            <motion.div key={cat.name} variants={scaleIn}>
+            <motion.div key={cat.name} variants={slideFromRight}>
               <motion.div
                 whileHover={{ y: -6, boxShadow: "0 16px 32px rgba(107,53,168,0.14)" }}
                 transition={{ duration: 0.25 }}

@@ -1,31 +1,36 @@
-// Framer Motion reusable variants
+import type { Variants } from "framer-motion";
 
-export const fadeUp = {
+export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-export const fadeIn = {
+export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
-export const fadeLeft = {
+export const fadeLeft: Variants = {
   hidden: { opacity: 0, x: -60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
-export const fadeRight = {
+export const fadeRight: Variants = {
   hidden: { opacity: 0, x: 60 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
-export const scaleIn = {
+export const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.85 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.34, 1.56, 0.64, 1] } },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "backOut" } },
 };
 
-export const staggerContainer = {
+export const slideFromRight: Variants = {
+  hidden: { opacity: 0, x: 120 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: "easeOut" } },
+};
+
+export const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -35,7 +40,7 @@ export const staggerContainer = {
   },
 };
 
-export const staggerFast = {
+export const staggerFast: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -45,7 +50,7 @@ export const staggerFast = {
   },
 };
 
-export const staggerSlow = {
+export const staggerSlow: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -55,16 +60,7 @@ export const staggerSlow = {
   },
 };
 
-export const cardHover = {
-  rest: { y: 0, boxShadow: "0 1px 3px rgba(0,0,0,0.08)" },
-  hover: {
-    y: -6,
-    boxShadow: "0 20px 40px rgba(107,53,168,0.18)",
-    transition: { duration: 0.3, ease: "easeOut" },
-  },
-};
-
 export const viewportConfig = {
   once: true,
   margin: "-80px",
-};
+} as const;

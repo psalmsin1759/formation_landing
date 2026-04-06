@@ -25,7 +25,7 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className="sticky top-0 z-50 w-full transition-shadow duration-300"
       style={{
         backgroundColor: "#FFFFFF",

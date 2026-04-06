@@ -8,6 +8,7 @@ import InstructorHighlight from "./components/home/InstructorHighlight";
 import Testimonials from "./components/home/Testimonials";
 import CorporateCTA from "./components/home/CorporateCTA";
 import BecomeInstructor from "./components/home/BecomeInstructor";
+import EventsBlogPreview from "./components/home/EventsBlogPreview";
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
         <Categories />
         <FeaturedCourses />
         <InstructorHighlight />
+        <EventsBlogPreview />
         <Testimonials />
         <BecomeInstructor />
         <CorporateCTA />

@@ -1,11 +1,20 @@
+"use client";
+import { motion } from "framer-motion";
 import StarRating from "@/app/components/shared/StarRating";
 import { testimonials } from "@/app/lib/data";
+import { fadeUp, fadeLeft, fadeRight, staggerContainer, viewportConfig } from "@/app/lib/animations";
 
 export default function Testimonials() {
   return (
     <section style={{ backgroundColor: "#FAFAF9" }} className="py-16 px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-10">
+        <motion.div
+          className="text-center mb-10"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+        >
           <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#8B55C8" }}>
             What Our Students Say
           </p>
@@ -15,12 +24,21 @@ export default function Testimonials() {
           >
             Trusted by Professionals Across Industries
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+        >
           {testimonials.map((t, i) => (
-            <div
+            <motion.div
               key={i}
+              variants={i % 2 === 0 ? fadeLeft : fadeRight}
+              whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(107,53,168,0.12)" }}
+              transition={{ duration: 0.25 }}
               className="p-6 rounded-2xl"
               style={{
                 backgroundColor: i % 2 === 0 ? "#FFFFFF" : "#2E1350",
@@ -35,12 +53,13 @@ export default function Testimonials() {
                 &ldquo;{t.text}&rdquo;
               </blockquote>
               <div className="flex items-center gap-3 mt-5 pt-4" style={{ borderTop: `1px solid ${i % 2 === 0 ? "#E8E0F0" : "rgba(255,255,255,0.1)"}` }}>
-                <div
+                <motion.div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white"
                   style={{ backgroundColor: "#6B35A8" }}
+                  whileHover={{ scale: 1.1 }}
                 >
                   {t.name.charAt(0)}
-                </div>
+                </motion.div>
                 <div>
                   <p
                     className="text-sm font-bold"
@@ -65,9 +84,9 @@ export default function Testimonials() {
                   {t.course.split(" ").slice(0, 3).join(" ")}…
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

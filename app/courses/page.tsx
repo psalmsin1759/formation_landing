@@ -1,7 +1,10 @@
+"use client";
+import { motion } from "framer-motion";
 import Navbar from "@/app/components/shared/Navbar";
 import Footer from "@/app/components/shared/Footer";
 import CourseCard from "@/app/components/shared/CourseCard";
 import { courses, categories } from "@/app/lib/data";
+import { fadeUp, fadeLeft, staggerContainer, viewportConfig } from "@/app/lib/animations";
 
 export default function CoursesPage() {
   return (
@@ -14,20 +17,31 @@ export default function CoursesPage() {
           className="px-6 py-16"
         >
           <div className="max-w-7xl mx-auto">
-            <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#D4AF37" }}>
-              Formation Exceptionelle
-            </p>
-            <h1
-              className="text-4xl font-bold text-white mb-4"
-              style={{ fontFamily: "'Playfair Display', serif" }}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              All Courses
-            </h1>
-            <p style={{ color: "#C8B8E8" }} className="text-sm max-w-xl">
-              Expert-led training in law, business, and technical disciplines. Practical knowledge, real-world case studies, and industry-recognized certifications.
-            </p>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#D4AF37" }}>
+                Formation Exceptionelle
+              </p>
+              <h1
+                className="text-4xl font-bold text-white mb-4"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              >
+                All Courses
+              </h1>
+              <p style={{ color: "#C8B8E8" }} className="text-sm max-w-xl">
+                Expert-led training in law, business, and technical disciplines. Practical knowledge, real-world case studies, and industry-recognized certifications.
+              </p>
+            </motion.div>
             {/* Search */}
-            <div className="mt-6 flex gap-3 max-w-xl">
+            <motion.div
+              className="mt-6 flex gap-3 max-w-xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
+            >
               <div
                 className="flex-1 flex items-center gap-2 px-4 py-3 rounded-lg"
                 style={{ backgroundColor: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.15)" }}
@@ -42,19 +56,27 @@ export default function CoursesPage() {
                   style={{ color: "#FFFFFF" }}
                 />
               </div>
-              <button
+              <motion.button
                 className="px-5 py-3 rounded-lg text-sm font-bold"
                 style={{ backgroundColor: "#D4AF37", color: "#1A1235" }}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
               >
                 Search
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           </div>
         </section>
 
         <div className="max-w-7xl mx-auto px-6 py-12 flex gap-8">
           {/* Sidebar filters */}
-          <aside className="hidden lg:block w-60 shrink-0">
+          <motion.aside
+            className="hidden lg:block w-60 shrink-0"
+            variants={fadeLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
             <div className="sticky top-20 flex flex-col gap-6">
               {/* Category filter */}
               <div>
@@ -123,19 +145,27 @@ export default function CoursesPage() {
                 </div>
               </div>
 
-              <button
+              <motion.button
                 className="w-full py-2.5 rounded-lg text-sm font-bold mt-2"
                 style={{ backgroundColor: "#6B35A8", color: "#FFFFFF" }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
               >
                 Apply Filters
-              </button>
+              </motion.button>
             </div>
-          </aside>
+          </motion.aside>
 
           {/* Course grid */}
           <div className="flex-1">
             {/* Sort + count */}
-            <div className="flex items-center justify-between mb-6">
+            <motion.div
+              className="flex items-center justify-between mb-6"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               <p className="text-sm" style={{ color: "#7C7A99" }}>
                 Showing <strong style={{ color: "#1A1235" }}>{courses.length}</strong> courses
               </p>
@@ -149,18 +179,35 @@ export default function CoursesPage() {
                 <option>Price: Low to High</option>
                 <option>Price: High to Low</option>
               </select>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               {courses.map((course) => (
-                <CourseCard key={course.slug} course={course} />
+                <motion.div
+                  key={course.slug}
+                  variants={fadeUp}
+                >
+                  <CourseCard course={course} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-center gap-2 mt-12">
+            <motion.div
+              className="flex items-center justify-center gap-2 mt-12"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               {[1, 2, 3, "...", 8].map((p, i) => (
-                <button
+                <motion.button
                   key={i}
                   className="w-9 h-9 rounded-lg text-sm font-semibold"
                   style={{
@@ -168,11 +215,14 @@ export default function CoursesPage() {
                     color: p === 1 ? "#FFFFFF" : "#4B4465",
                     border: "1px solid #E8E0F0",
                   }}
+                  whileHover={{ scale: 1.1, backgroundColor: p === 1 ? "#4A2278" : "#F3EEFF" }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
                 >
                   {p}
-                </button>
+                </motion.button>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </main>

@@ -1,8 +1,11 @@
+"use client";
+import { motion } from "framer-motion";
 import Navbar from "@/app/components/shared/Navbar";
 import Footer from "@/app/components/shared/Footer";
 import StarRating from "@/app/components/shared/StarRating";
 import { instructors } from "@/app/lib/data";
 import Link from "next/link";
+import { fadeUp, fadeLeft, fadeRight, scaleIn, staggerContainer, staggerFast, viewportConfig } from "@/app/lib/animations";
 
 export default function AboutPage() {
   return (
@@ -15,25 +18,36 @@ export default function AboutPage() {
           className="px-6 py-20"
         >
           <div className="max-w-4xl mx-auto text-center">
-            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "#D4AF37" }}>
-              Our Story
-            </p>
-            <h1
-              className="text-4xl lg:text-5xl font-bold text-white mb-6"
-              style={{ fontFamily: "'Playfair Display', serif" }}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              Empowering Excellence<br />Across Industries
-            </h1>
-            <p className="text-base leading-relaxed max-w-2xl mx-auto" style={{ color: "#C8B8E8" }}>
-              Formation Exceptionelle was founded with a single mission: to give ambitious professionals access to the same calibre of training as those at the world&rsquo;s top firms — without the six-figure price tag.
-            </p>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "#D4AF37" }}>
+                Our Story
+              </p>
+              <h1
+                className="text-4xl lg:text-5xl font-bold text-white mb-6"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              >
+                Empowering Excellence<br />Across Industries
+              </h1>
+              <p className="text-base leading-relaxed max-w-2xl mx-auto" style={{ color: "#C8B8E8" }}>
+                Formation Exceptionelle was founded with a single mission: to give ambitious professionals access to the same calibre of training as those at the world&rsquo;s top firms — without the six-figure price tag.
+              </p>
+            </motion.div>
           </div>
         </section>
 
         {/* Mission & Values */}
         <section style={{ backgroundColor: "#FAFAF9" }} className="py-16 px-6">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <motion.div
+              variants={fadeLeft}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#8B55C8" }}>
                 Our Mission
               </p>
@@ -49,47 +63,75 @@ export default function AboutPage() {
               <p className="text-sm leading-relaxed mb-6" style={{ color: "#4B4465" }}>
                 Our programs are built around real cases, real documents, and real decisions. Not textbooks. We believe that the best training happens when theory meets practice — and we&rsquo;ve built our entire curriculum around that principle.
               </p>
-              <Link
-                href="/courses"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-sm text-white"
-                style={{ backgroundColor: "#6B35A8" }}
-              >
-                Explore Our Courses
-              </Link>
-            </div>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  href="/courses"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-sm text-white"
+                  style={{ backgroundColor: "#6B35A8" }}
+                >
+                  Explore Our Courses
+                </Link>
+              </motion.div>
+            </motion.div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <motion.div
+              className="grid grid-cols-2 gap-4"
+              variants={staggerFast}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               {[
                 { icon: "⚖️", title: "Practitioner-Led", desc: "Every course is designed and delivered by active practitioners at the top of their field." },
                 { icon: "🌍", title: "Global Reach", desc: "Learners from 60+ countries access our programs in English and French." },
                 { icon: "📜", title: "Accredited Certs", desc: "Our certifications are recognised by leading firms, chambers, and employers." },
                 { icon: "🔄", title: "Continuously Updated", desc: "Courses are updated regularly to reflect legislative changes and new case law." },
               ].map((v) => (
-                <div
+                <motion.div
                   key={v.title}
+                  variants={scaleIn}
+                  whileHover={{ y: -4, boxShadow: "0 10px 28px rgba(107,53,168,0.1)" }}
+                  transition={{ duration: 0.2 }}
                   className="p-5 rounded-2xl"
                   style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8E0F0" }}
                 >
-                  <div className="text-3xl mb-3">{v.icon}</div>
+                  <motion.div
+                    className="text-3xl mb-3"
+                    whileHover={{ scale: 1.2, rotate: -5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {v.icon}
+                  </motion.div>
                   <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1235" }}>{v.title}</h3>
                   <p className="text-xs leading-relaxed" style={{ color: "#7C7A99" }}>{v.desc}</p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Stats */}
         <section style={{ backgroundColor: "#2E1350" }} className="py-16 px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <motion.div
+              className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
+              variants={staggerFast}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               {[
                 { value: "2019", label: "Founded" },
                 { value: "30,000+", label: "Professionals Trained" },
                 { value: "87+", label: "Expert Courses" },
                 { value: "60+", label: "Countries Reached" },
               ].map((s) => (
-                <div key={s.label}>
+                <motion.div
+                  key={s.label}
+                  variants={fadeUp}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <p
                     className="text-4xl font-black mb-2"
                     style={{ color: "#D4AF37", fontFamily: "'Playfair Display', serif" }}
@@ -97,16 +139,22 @@ export default function AboutPage() {
                     {s.value}
                   </p>
                   <p className="text-sm" style={{ color: "#9B8AB8" }}>{s.label}</p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Instructors */}
         <section id="team" style={{ backgroundColor: "#FFFFFF" }} className="py-16 px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-10">
+            <motion.div
+              className="text-center mb-10"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#8B55C8" }}>
                 The Experts Behind the Courses
               </p>
@@ -116,22 +164,33 @@ export default function AboutPage() {
               >
                 Meet Our Instructors
               </h2>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               {instructors.map((inst) => (
-                <div
+                <motion.div
                   key={inst.name}
+                  variants={fadeUp}
+                  whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(107,53,168,0.12)" }}
+                  transition={{ duration: 0.25 }}
                   className="rounded-2xl p-6"
                   style={{ backgroundColor: "#FAFAF9", border: "1px solid #E8E0F0" }}
                 >
                   <div className="flex items-center gap-4 mb-4">
-                    <div
+                    <motion.div
                       className="w-14 h-14 rounded-xl flex items-center justify-center text-xl font-black text-white shrink-0"
                       style={{ backgroundColor: "#6B35A8" }}
+                      whileHover={{ scale: 1.08, rotate: -5 }}
+                      transition={{ duration: 0.2 }}
                     >
                       {inst.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
-                    </div>
+                    </motion.div>
                     <div>
                       <h3 className="text-sm font-bold" style={{ color: "#1A1235" }}>{inst.name}</h3>
                       <p className="text-xs" style={{ color: "#7C7A99" }}>{inst.title}</p>
@@ -147,16 +206,21 @@ export default function AboutPage() {
                       <strong style={{ color: "#6B35A8" }}>{(inst.students / 1000).toFixed(1)}k</strong> students
                     </span>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Contact */}
         <section id="contact" style={{ backgroundColor: "#F3EEFF" }} className="py-16 px-6">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
+            <motion.div
+              variants={fadeLeft}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#8B55C8" }}>
                 Get in Touch
               </p>
@@ -169,23 +233,43 @@ export default function AboutPage() {
               <p className="text-sm leading-relaxed mb-6" style={{ color: "#4B4465" }}>
                 Whether you&rsquo;re an individual looking to advance your career, an organisation seeking corporate training solutions, or an expert who wants to teach on our platform — we&rsquo;re here to help.
               </p>
-              <div className="flex flex-col gap-4">
+              <motion.div
+                className="flex flex-col gap-4"
+                variants={staggerFast}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportConfig}
+              >
                 {[
                   { icon: "📧", label: "hello@formationexceptionelle.com" },
                   { icon: "🌍", label: "Lagos · Abuja · Port Harcourt" },
                   { icon: "🕐", label: "Monday – Friday, 9:00 – 18:00 CET" },
                 ].map((c) => (
-                  <div key={c.label} className="flex items-center gap-3">
-                    <span className="text-lg">{c.icon}</span>
+                  <motion.div
+                    key={c.label}
+                    variants={fadeUp}
+                    className="flex items-center gap-3"
+                  >
+                    <motion.span
+                      className="text-lg"
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {c.icon}
+                    </motion.span>
                     <span className="text-sm" style={{ color: "#4B4465" }}>{c.label}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            <div
+            <motion.div
               className="rounded-2xl p-8"
               style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8E0F0" }}
+              variants={fadeRight}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
             >
               <div className="flex flex-col gap-4">
                 {[
@@ -216,14 +300,16 @@ export default function AboutPage() {
                     style={{ border: "1.5px solid #E8E0F0", color: "#1A1235", backgroundColor: "#FAFAF9" }}
                   />
                 </div>
-                <button
+                <motion.button
                   className="w-full py-3.5 rounded-lg font-bold text-sm text-white transition-opacity hover:opacity-90"
                   style={{ backgroundColor: "#6B35A8" }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
                 >
                   Send Message
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>

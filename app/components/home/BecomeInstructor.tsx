@@ -1,4 +1,7 @@
+"use client";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { fadeUp, fadeLeft, fadeRight, scaleIn, staggerContainer, staggerFast, viewportConfig } from "@/app/lib/animations";
 
 const perks = [
   {
@@ -36,7 +39,12 @@ export default function BecomeInstructor() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left */}
-          <div>
+          <motion.div
+            variants={fadeLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
             <p
               className="text-xs font-semibold tracking-widest uppercase mb-3"
               style={{ color: "#D4AF37" }}
@@ -54,50 +62,94 @@ export default function BecomeInstructor() {
             </p>
 
             {/* Perks grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8"
+              variants={staggerFast}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               {perks.map((perk) => (
-                <div
+                <motion.div
                   key={perk.title}
+                  variants={fadeUp}
+                  whileHover={{ y: -3, boxShadow: "0 8px 24px rgba(107,53,168,0.1)" }}
+                  transition={{ duration: 0.2 }}
                   className="flex items-start gap-3 p-4 rounded-xl"
                   style={{ backgroundColor: "#F3EEFF", border: "1px solid #E8E0F0" }}
                 >
-                  <span className="text-2xl shrink-0">{perk.icon}</span>
+                  <motion.span
+                    className="text-2xl shrink-0"
+                    whileHover={{ scale: 1.2 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {perk.icon}
+                  </motion.span>
                   <div>
                     <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1235" }}>{perk.title}</h3>
                     <p className="text-xs leading-relaxed" style={{ color: "#7C7A99" }}>{perk.desc}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/about#contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-bold text-sm text-white transition-opacity hover:opacity-90"
-                style={{ backgroundColor: "#6B35A8" }}
-              >
-                Apply to Teach
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </Link>
-              <Link
-                href="/about#team"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-opacity hover:opacity-80"
-                style={{ border: "1.5px solid #6B35A8", color: "#6B35A8" }}
-              >
-                Meet Our Instructors
-              </Link>
-            </div>
-          </div>
+            <motion.div
+              className="flex flex-col sm:flex-row gap-3"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  href="/about#contact"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-bold text-sm text-white transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: "#6B35A8" }}
+                >
+                  Apply to Teach
+                  <motion.svg
+                    width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </motion.svg>
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  href="/about#team"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-opacity hover:opacity-80"
+                  style={{ border: "1.5px solid #6B35A8", color: "#6B35A8" }}
+                >
+                  Meet Our Instructors
+                </Link>
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
           {/* Right: stats + instructor card */}
-          <div className="flex flex-col gap-6">
+          <motion.div
+            className="flex flex-col gap-6"
+            variants={fadeRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
             {/* Stats row */}
-            <div className="grid grid-cols-2 gap-4">
+            <motion.div
+              className="grid grid-cols-2 gap-4"
+              variants={staggerFast}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               {instructorStats.map((s) => (
-                <div
+                <motion.div
                   key={s.label}
+                  variants={scaleIn}
+                  whileHover={{ scale: 1.04 }}
+                  transition={{ duration: 0.2 }}
                   className="p-5 rounded-2xl text-center"
                   style={{ backgroundColor: "#2E1350" }}
                 >
@@ -108,24 +160,28 @@ export default function BecomeInstructor() {
                     {s.value}
                   </p>
                   <p className="text-xs" style={{ color: "#9B8AB8" }}>{s.label}</p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Instructor testimonial card */}
-            <div
+            <motion.div
               className="rounded-2xl p-6"
               style={{
                 background: "linear-gradient(135deg, #4A2278 0%, #6B35A8 100%)",
               }}
+              whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(107,53,168,0.3)" }}
+              transition={{ duration: 0.3 }}
             >
               <div className="flex items-center gap-4 mb-4">
-                <div
+                <motion.div
                   className="w-14 h-14 rounded-xl flex items-center justify-center text-xl font-black text-white shrink-0"
                   style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ duration: 0.2 }}
                 >
                   TA
-                </div>
+                </motion.div>
                 <div>
                   <p className="text-sm font-bold text-white">Tunde Adesanya</p>
                   <p className="text-xs" style={{ color: "#C8B8E8" }}>Former McKinsey Principal · 2,740 students</p>
@@ -146,8 +202,8 @@ export default function BecomeInstructor() {
                   ₦4.2M earned last month
                 </span>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

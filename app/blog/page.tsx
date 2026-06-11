@@ -41,8 +41,8 @@ export default function BlogPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <p className="text-xs font-semibold tracking-widest uppercase mb-3 flex items-center gap-2" style={{ color: "#D4AF37" }}>
-                <span>✍️</span> Insights & Perspectives
+              <p className="eyebrow mb-4" style={{ color: "#D4AF37" }}>
+                Insights &amp; Perspectives
               </p>
               <h1
                 className="text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight"

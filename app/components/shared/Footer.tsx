@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { staggerContainer, fadeUp, fadeLeft, viewportConfig } from "@/app/lib/animations";
+import { IconAward, IconLock, IconGlobe, IconGraduationCap, IconStar } from "@/app/lib/icons";
 
 const footerLinks = {
   Platform: [
@@ -75,18 +76,23 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: "#120A25", color: "#C8B8E8" }} className="relative overflow-hidden">
-      {/* Watermark */}
+    <footer style={{ backgroundColor: "#120A25", color: "#C8B8E8" }} className="grain relative overflow-hidden">
+      {/* Drifting watermark */}
       <div
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+        className="absolute bottom-0 left-0 right-0 pointer-events-none select-none overflow-hidden"
         aria-hidden="true"
       >
-        <span
-          className="text-[11rem] lg:text-[16rem] font-black italic whitespace-nowrap tracking-tighter opacity-[0.025]"
-          style={{ color: "#D4AF37", fontFamily: "'Playfair Display', serif", userSelect: "none" }}
-        >
-          Formation Exceptionelle
-        </span>
+        <div className="marquee-track" style={{ "--marquee-duration": "70s" } as React.CSSProperties}>
+          {[0, 1].map((n) => (
+            <span
+              key={n}
+              className="font-display shrink-0 pr-16 text-[9rem] lg:text-[13rem] font-black italic leading-none whitespace-nowrap tracking-tighter opacity-[0.03]"
+              style={{ color: "#D4AF37", userSelect: "none" }}
+            >
+              Formation Exceptionelle — Empowering Excellence —&nbsp;
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* Top divider with gradient */}
@@ -124,14 +130,14 @@ export default function Footer() {
             <div className="flex gap-2">
               <input
                 type="email"
+                aria-label="Email address"
                 placeholder="your@email.com"
-                className="flex-1 px-3 py-2.5 rounded-lg text-xs outline-none"
-                style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "#FFFFFF" }}
+                className="flex-1 px-4 py-2.5 rounded-full text-xs outline-none transition-colors focus:border-[#D4AF37]"
+                style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#FFFFFF" }}
               />
               <motion.button
-                className="px-4 py-2.5 rounded-lg text-xs font-bold shrink-0"
+                className="btn-sheen px-5 py-2.5 rounded-full text-xs font-bold shrink-0 cursor-pointer"
                 style={{ backgroundColor: "#D4AF37", color: "#120A25" }}
-                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
               >
                 Join
@@ -192,15 +198,15 @@ export default function Footer() {
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
         >
           {[
-            { icon: "🏆", text: "CPD Accredited" },
-            { icon: "🔒", text: "Secure Payments" },
-            { icon: "🌍", text: "60+ Countries" },
-            { icon: "🎓", text: "30,000+ Students" },
-            { icon: "⭐", text: "4.8 Avg Rating" },
+            { icon: <IconAward size={15} />, text: "CPD Accredited" },
+            { icon: <IconLock size={15} />, text: "Secure Payments" },
+            { icon: <IconGlobe size={15} />, text: "60+ Countries" },
+            { icon: <IconGraduationCap size={15} />, text: "30,000+ Students" },
+            { icon: <IconStar size={15} />, text: "4.8 Avg Rating" },
           ].map((b) => (
-            <div key={b.text} className="flex items-center gap-2">
-              <span className="text-base">{b.icon}</span>
-              <span className="text-xs font-medium" style={{ color: "#7B6A9B" }}>{b.text}</span>
+            <div key={b.text} className="flex items-center gap-2.5">
+              <span style={{ color: "#D4AF37" }}>{b.icon}</span>
+              <span className="text-xs font-medium tracking-wide" style={{ color: "#7B6A9B" }}>{b.text}</span>
             </div>
           ))}
         </motion.div>

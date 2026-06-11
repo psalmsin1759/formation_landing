@@ -3,6 +3,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { events, blogPosts } from "@/app/lib/data";
 import { fadeUp, fadeLeft, fadeRight, staggerContainer, staggerFast, viewportConfig } from "@/app/lib/animations";
+import { IconArrowRight } from "@/app/lib/icons";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" });
@@ -26,25 +27,24 @@ export default function EventsBlogPreview() {
           >
             <div className="flex items-end justify-between mb-7">
               <div>
-                <p className="text-xs font-semibold tracking-widest uppercase mb-1" style={{ color: "#8B55C8" }}>
-                  📅 Live Programmes
+                <p className="eyebrow mb-2" style={{ color: "#8B55C8" }}>
+                  Live Programmes
                 </p>
                 <h2
-                  className="text-2xl font-bold"
-                  style={{ color: "#1A1235", fontFamily: "'Playfair Display', serif" }}
+                  className="font-display text-2xl lg:text-3xl font-bold tracking-tight"
+                  style={{ color: "#1A1235" }}
                 >
                   Upcoming Events
                 </h2>
               </div>
-              <motion.div whileHover={{ x: 3 }} transition={{ duration: 0.15 }}>
-                <Link
-                  href="/events"
-                  className="text-sm font-semibold"
-                  style={{ color: "#6B35A8" }}
-                >
-                  All events →
-                </Link>
-              </motion.div>
+              <Link
+                href="/events"
+                className="link-underline inline-flex items-center gap-2 pb-1 text-sm font-semibold"
+                style={{ color: "#6B35A8" }}
+              >
+                All events
+                <IconArrowRight size={14} />
+              </Link>
             </div>
 
             <motion.div
@@ -122,25 +122,24 @@ export default function EventsBlogPreview() {
           >
             <div className="flex items-end justify-between mb-7">
               <div>
-                <p className="text-xs font-semibold tracking-widest uppercase mb-1" style={{ color: "#8B55C8" }}>
-                  ✍️ Insights & Analysis
+                <p className="eyebrow mb-2" style={{ color: "#8B55C8" }}>
+                  Insights &amp; Analysis
                 </p>
                 <h2
-                  className="text-2xl font-bold"
-                  style={{ color: "#1A1235", fontFamily: "'Playfair Display', serif" }}
+                  className="font-display text-2xl lg:text-3xl font-bold tracking-tight"
+                  style={{ color: "#1A1235" }}
                 >
                   Latest Articles
                 </h2>
               </div>
-              <motion.div whileHover={{ x: 3 }} transition={{ duration: 0.15 }}>
-                <Link
-                  href="/blog"
-                  className="text-sm font-semibold"
-                  style={{ color: "#6B35A8" }}
-                >
-                  All articles →
-                </Link>
-              </motion.div>
+              <Link
+                href="/blog"
+                className="link-underline inline-flex items-center gap-2 pb-1 text-sm font-semibold"
+                style={{ color: "#6B35A8" }}
+              >
+                All articles
+                <IconArrowRight size={14} />
+              </Link>
             </div>
 
             <motion.div

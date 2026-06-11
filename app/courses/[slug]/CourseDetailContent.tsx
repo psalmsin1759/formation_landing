@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import StarRating from "@/app/components/shared/StarRating";
 import { courses } from "@/app/lib/data";
 import { fadeUp, fadeLeft, fadeRight, scaleIn, staggerContainer, staggerFast, viewportConfig } from "@/app/lib/animations";
+import { IconUsers, IconGlobe, IconClock, IconBookOpen, IconAward, CategoryIcon } from "@/app/lib/icons";
 
 type Course = typeof courses[0];
 
@@ -62,12 +63,12 @@ export default function CourseDetailContent({ course, discount }: { course: Cour
                 {course.students.toLocaleString()} students enrolled
               </span>
             </div>
-            <div className="flex flex-wrap gap-4 text-sm" style={{ color: "#9B8AB8" }}>
-              <span>👨‍🏫 {course.instructor}</span>
-              <span>🌐 {course.language}</span>
-              <span>⏱ {course.duration}</span>
-              <span>📋 {course.lessons} lessons</span>
-              {course.certificate && <span>🏆 Certificate of Completion</span>}
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm" style={{ color: "#9B8AB8" }}>
+              <span className="inline-flex items-center gap-1.5"><IconUsers size={14} /> {course.instructor}</span>
+              <span className="inline-flex items-center gap-1.5"><IconGlobe size={14} /> {course.language}</span>
+              <span className="inline-flex items-center gap-1.5"><IconClock size={14} /> {course.duration}</span>
+              <span className="inline-flex items-center gap-1.5"><IconBookOpen size={14} /> {course.lessons} lessons</span>
+              {course.certificate && <span className="inline-flex items-center gap-1.5"><IconAward size={14} /> Certificate of Completion</span>}
             </div>
           </motion.div>
 
@@ -352,14 +353,17 @@ function PurchaseCard({ course, discount }: { course: Course; discount: number }
       transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
     >
       {/* Course preview image */}
-      <motion.div
-        className="w-full h-40 flex items-center justify-center text-5xl"
-        style={{ backgroundColor: "#F3EEFF" }}
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.2 }}
+      <div
+        className="grain relative w-full h-40 flex items-center justify-center overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #2E1350 0%, #4A2278 60%, #6B35A8 100%)" }}
       >
-        {course.category === "Legal Training" ? "⚖️" : course.category === "Business & Management" ? "💼" : course.category === "Technical Skills" ? "💻" : "🎯"}
-      </motion.div>
+        <span
+          className="flex h-16 w-16 items-center justify-center rounded-2xl backdrop-blur-md"
+          style={{ backgroundColor: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "#F5E090" }}
+        >
+          <CategoryIcon category={course.category} size={30} />
+        </span>
+      </div>
 
       <div className="p-5">
         {/* Price */}

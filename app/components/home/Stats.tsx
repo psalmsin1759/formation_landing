@@ -2,14 +2,15 @@
 import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { gsap } from "gsap";
+import { EASE } from "@/app/lib/animations";
 
 const stats = [
-  { value: 30000, suffix: "+", label: "Enrolled Professionals", icon: "👩‍⚖️", desc: "across Nigeria & 60+ countries" },
-  { value: 87,    suffix: "+", label: "Expert-Led Courses",     icon: "📚",   desc: "law, business & tech" },
-  { value: 42,    suffix: "",  label: "Industry Experts",       icon: "🎓",   desc: "active practitioners" },
-  { value: 98,    suffix: "%", label: "Satisfaction Rate",      icon: "⭐",   desc: "from post-course surveys" },
-  { value: 60,    suffix: "+", label: "Countries Reached",      icon: "🌍",   desc: "global professional network" },
-  { value: 4.8,   suffix: "",  label: "Average Rating",         icon: "🏆",   desc: "out of 5.0" },
+  { value: 30000, suffix: "+", label: "Enrolled Professionals", desc: "Nigeria & 60+ countries" },
+  { value: 87,    suffix: "+", label: "Expert-Led Courses",     desc: "law, business & tech" },
+  { value: 42,    suffix: "",  label: "Industry Experts",       desc: "active practitioners" },
+  { value: 98,    suffix: "%", label: "Satisfaction Rate",      desc: "post-course surveys" },
+  { value: 60,    suffix: "+", label: "Countries Reached",      desc: "global network" },
+  { value: 4.8,   suffix: "",  label: "Average Rating",         desc: "out of 5.0" },
 ];
 
 function CountUp({ target, start }: { target: number; start: boolean }) {
@@ -20,8 +21,8 @@ function CountUp({ target, start }: { target: number; start: boolean }) {
     const obj = { val: 0 };
     gsap.to(obj, {
       val: target,
-      duration: 2,
-      ease: "power2.out",
+      duration: 2.2,
+      ease: "power3.out",
       onUpdate() {
         if (ref.current) {
           ref.current.textContent =
@@ -39,84 +40,60 @@ export default function Stats() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section
-      ref={ref}
-      className="relative overflow-hidden py-16"
-      style={{ background: "linear-gradient(135deg, #1A1235 0%, #2E1350 50%, #3D1A6E 100%)" }}
-    >
-      {/* Subtle grid pattern overlay */}
+    <section ref={ref} className="grain relative overflow-hidden py-20" style={{ backgroundColor: "#120A25" }}>
+      {/* Faint radial wash */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: "radial-gradient(circle, #D4AF37 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(800px 360px at 50% 0%, rgba(107,53,168,0.22), transparent 70%)" }}
       />
-      {/* Glow blobs */}
-      <div className="absolute top-0 left-1/4 w-64 h-64 rounded-full opacity-10 blur-3xl pointer-events-none" style={{ backgroundColor: "#6B35A8" }} />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 rounded-full opacity-10 blur-3xl pointer-events-none" style={{ backgroundColor: "#D4AF37" }} />
 
-      <div className="relative max-w-7xl mx-auto px-6">
-        {/* Section label */}
+      <div className="relative z-[2] max-w-7xl mx-auto px-6">
         <motion.p
-          className="text-center text-xs font-semibold tracking-widest uppercase mb-10"
+          className="eyebrow justify-center w-full mb-14"
           style={{ color: "#D4AF37" }}
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.7, ease: EASE }}
         >
           Formation Exceptionelle by the Numbers
         </motion.p>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px"
-          style={{ backgroundColor: "rgba(255,255,255,0.06)", borderRadius: "20px", overflow: "hidden" }}
-        >
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-14">
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
-              className="flex flex-col items-center text-center px-5 py-8 relative group"
-              style={{ backgroundColor: "rgba(20,10,40,0.6)" }}
-              initial={{ opacity: 0, y: 24 }}
+              className="relative flex flex-col items-center text-center px-4"
+              initial={{ opacity: 0, y: 28 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.09, duration: 0.55, ease: "easeOut" }}
-              whileHover={{ backgroundColor: "rgba(107,53,168,0.15)" }}
+              transition={{ delay: 0.1 + i * 0.1, duration: 0.9, ease: EASE }}
             >
-              {/* Top accent line */}
-              <motion.div
-                className="absolute top-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full"
-                style={{ backgroundColor: "#D4AF37", width: 0 }}
-                animate={inView ? { width: "40%" } : { width: 0 }}
-                transition={{ delay: 0.4 + i * 0.09, duration: 0.6, ease: "easeOut" }}
-              />
+              {/* Hairline separator between cells */}
+              {i % 6 !== 0 && (
+                <span
+                  className="absolute left-0 top-1/2 -translate-y-1/2 hidden lg:block h-16 w-px"
+                  style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+                  aria-hidden="true"
+                />
+              )}
 
-              {/* Icon */}
-              <motion.div
-                className="text-2xl mb-3 leading-none"
-                animate={inView ? { rotate: [0, -12, 12, 0], scale: [1, 1.25, 1] } : {}}
-                transition={{ delay: 0.3 + i * 0.09, duration: 0.55 }}
+              {/* Ghost index */}
+              <span
+                className="font-display text-outline text-xs font-bold tracking-[0.3em] mb-4"
+                style={{ color: "rgba(212,175,55,0.5)" }}
+                aria-hidden="true"
               >
-                {s.icon}
-              </motion.div>
+                {String(i + 1).padStart(2, "0")}
+              </span>
 
-              {/* Number */}
-              <p
-                className="text-3xl font-black leading-none mb-1"
-                style={{ color: "#FFFFFF", fontFamily: "'Playfair Display', serif" }}
-              >
+              <p className="font-display font-black leading-none text-white" style={{ fontSize: "clamp(2.1rem, 3.2vw, 2.9rem)" }}>
                 <CountUp target={s.value} start={inView} />
                 <span style={{ color: "#D4AF37" }}>{s.suffix}</span>
               </p>
 
-              {/* Label */}
-              <p className="text-xs font-semibold mt-1 leading-snug" style={{ color: "#C8B8E8" }}>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] mt-4 leading-relaxed" style={{ color: "#B9A8DC" }}>
                 {s.label}
               </p>
-
-              {/* Sub-description — fades in on hover */}
-              <p
-                className="text-xs mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 leading-snug"
-                style={{ color: "#7B6A9B" }}
-              >
+              <p className="text-[11px] mt-1.5 leading-snug" style={{ color: "#6B5A8C" }}>
                 {s.desc}
               </p>
             </motion.div>

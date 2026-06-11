@@ -1,26 +1,27 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { fadeUp, fadeLeft, fadeRight, scaleIn, staggerContainer, staggerFast, viewportConfig } from "@/app/lib/animations";
+import { fadeUp, fadeLeft, fadeRight, scaleIn, staggerFast, viewportConfig } from "@/app/lib/animations";
+import { IconBanknote, IconGlobe, IconAward, IconWrench, IconArrowRight } from "@/app/lib/icons";
 
 const perks = [
   {
-    icon: "💰",
+    icon: <IconBanknote size={19} />,
     title: "Earn in Naira",
     desc: "Set your own course price and earn up to 70% revenue share. Top instructors earn over ₦5M per month.",
   },
   {
-    icon: "🌍",
+    icon: <IconGlobe size={19} />,
     title: "Reach Thousands",
     desc: "Tap into our 30,000+ enrolled professionals across Nigeria and 60+ countries worldwide.",
   },
   {
-    icon: "🎓",
+    icon: <IconAward size={19} />,
     title: "Build Your Brand",
     desc: "Establish yourself as a thought leader. Our platform gives you the tools to grow your personal brand.",
   },
   {
-    icon: "🛠️",
+    icon: <IconWrench size={19} />,
     title: "Full Production Support",
     desc: "Our team helps you script, record, and produce your course — no technical experience required.",
   },
@@ -45,17 +46,18 @@ export default function BecomeInstructor() {
             whileInView="visible"
             viewport={viewportConfig}
           >
-            <p
-              className="text-xs font-semibold tracking-widest uppercase mb-3"
-              style={{ color: "#D4AF37" }}
-            >
+            <p className="eyebrow mb-4" style={{ color: "#9A7B1F" }}>
               Share Your Expertise
             </p>
             <h2
-              className="text-3xl lg:text-4xl font-bold mb-5 leading-tight"
-              style={{ color: "#1A1235", fontFamily: "'Playfair Display', serif" }}
+              className="font-display font-bold mb-5 tracking-tight"
+              style={{ color: "#1A1235", fontSize: "clamp(1.9rem, 3.5vw, 3rem)", lineHeight: 1.12 }}
             >
-              Become an Instructor on Formation Exceptionelle
+              Become an{" "}
+              <em className="font-medium" style={{ color: "#6B35A8" }}>
+                Instructor
+              </em>{" "}
+              on Formation Exceptionelle
             </h2>
             <p className="text-sm leading-relaxed mb-8" style={{ color: "#4B4465" }}>
               Are you a practising lawyer, business executive, compliance expert, or industry specialist? Share your knowledge with ambitious professionals across Nigeria and beyond — and earn while doing it. We provide the platform, the students, and the support. You bring the expertise.
@@ -73,18 +75,19 @@ export default function BecomeInstructor() {
                 <motion.div
                   key={perk.title}
                   variants={fadeUp}
-                  whileHover={{ y: -3, boxShadow: "0 8px 24px rgba(107,53,168,0.1)" }}
-                  transition={{ duration: 0.2 }}
-                  className="flex items-start gap-3 p-4 rounded-xl"
-                  style={{ backgroundColor: "#F3EEFF", border: "1px solid #E8E0F0" }}
+                  className="flex items-start gap-3.5 p-5 rounded-2xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(46,19,80,0.3)]"
+                  style={{
+                    backgroundColor: "#F3EEFF",
+                    border: "1px solid #E8E0F0",
+                    transitionTimingFunction: "var(--ease-luxe)",
+                  }}
                 >
-                  <motion.span
-                    className="text-2xl shrink-0"
-                    whileHover={{ scale: 1.2 }}
-                    transition={{ duration: 0.2 }}
+                  <span
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+                    style={{ backgroundColor: "#FFFFFF", color: "#6B35A8", border: "1px solid #E8E0F0" }}
                   >
                     {perk.icon}
-                  </motion.span>
+                  </span>
                   <div>
                     <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1235" }}>{perk.title}</h3>
                     <p className="text-xs leading-relaxed" style={{ color: "#7C7A99" }}>{perk.desc}</p>
@@ -100,31 +103,26 @@ export default function BecomeInstructor() {
               whileInView="visible"
               viewport={viewportConfig}
             >
-              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                <Link
-                  href="/about#contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-bold text-sm text-white transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: "#6B35A8" }}
+              <Link
+                href="/about#contact"
+                className="btn-sheen group inline-flex items-center justify-center gap-3 rounded-full pl-7 pr-2 py-2 font-bold text-sm text-white transition-transform duration-300 hover:-translate-y-0.5"
+                style={{ backgroundColor: "#1A1235" }}
+              >
+                Apply to Teach
+                <span
+                  className="flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-400 group-hover:rotate-45"
+                  style={{ backgroundColor: "#D4AF37", color: "#120A25" }}
                 >
-                  Apply to Teach
-                  <motion.svg
-                    width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-                    animate={{ x: [0, 4, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </motion.svg>
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                <Link
-                  href="/about#team"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm transition-opacity hover:opacity-80"
-                  style={{ border: "1.5px solid #6B35A8", color: "#6B35A8" }}
-                >
-                  Meet Our Instructors
-                </Link>
-              </motion.div>
+                  <IconArrowRight size={15} strokeWidth={2.2} />
+                </span>
+              </Link>
+              <Link
+                href="/about#team"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full font-semibold text-sm transition-colors duration-300 hover:bg-[#F3EEFF]"
+                style={{ border: "1px solid #6B35A8", color: "#4A2278" }}
+              >
+                Meet Our Instructors
+              </Link>
             </motion.div>
           </motion.div>
 

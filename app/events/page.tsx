@@ -6,6 +6,7 @@ import Navbar from "@/app/components/shared/Navbar";
 import Footer from "@/app/components/shared/Footer";
 import { events } from "@/app/lib/data";
 import { fadeUp, fadeLeft, scaleIn, staggerContainer, staggerFast, viewportConfig } from "@/app/lib/animations";
+import { IconMonitor, IconWrench, IconMic, IconBookOpen, IconAward, IconCalendar, IconClock, IconMapPin } from "@/app/lib/icons";
 
 const typeColors: Record<string, { bg: string; text: string }> = {
   Webinar:     { bg: "rgba(107,53,168,0.12)", text: "#6B35A8" },
@@ -15,8 +16,12 @@ const typeColors: Record<string, { bg: string; text: string }> = {
   Masterclass: { bg: "rgba(212,175,55,0.2)", text: "#8B5E00" },
 };
 
-const typeIcons: Record<string, string> = {
-  Webinar: "💻", Workshop: "🛠️", Conference: "🎤", Seminar: "📖", Masterclass: "🏆",
+const typeIcons: Record<string, React.ReactNode> = {
+  Webinar: <IconMonitor size={13} />,
+  Workshop: <IconWrench size={13} />,
+  Conference: <IconMic size={13} />,
+  Seminar: <IconBookOpen size={13} />,
+  Masterclass: <IconAward size={13} />,
 };
 
 function formatDate(iso: string) {
@@ -54,13 +59,13 @@ export default function EventsPage() {
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <motion.p
-                className="text-xs font-semibold tracking-widest uppercase mb-3 inline-flex items-center gap-2"
+                className="eyebrow mb-4"
                 style={{ color: "#D4AF37" }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <span>📅</span> Live Events & Programmes
+                Live Events &amp; Programmes
               </motion.p>
               <h1
                 className="text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight"
@@ -111,7 +116,7 @@ export default function EventsPage() {
                 whileTap={{ scale: 0.96 }}
                 transition={{ duration: 0.15 }}
               >
-                {t !== "All" && <span className="mr-1">{typeIcons[t]}</span>}{t}
+                {t !== "All" && <span className="inline-flex">{typeIcons[t]}</span>}{t}
               </motion.button>
             ))}
             <span className="ml-auto text-sm" style={{ color: "#7C7A99" }}>
@@ -153,7 +158,7 @@ export default function EventsPage() {
                         >
                           <div className="flex items-start justify-between gap-3 mb-3">
                             <motion.span
-                              className="text-xs font-bold px-3 py-1 rounded-full"
+                              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full"
                               style={{ backgroundColor: tc.bg, color: tc.text }}
                               whileHover={{ scale: 1.05 }}
                             >
@@ -166,7 +171,7 @@ export default function EventsPage() {
                                 animate={{ opacity: [1, 0.6, 1] }}
                                 transition={{ duration: 1.5, repeat: Infinity }}
                               >
-                                🔥 {event.seatsLeft} seats left
+                                {event.seatsLeft} seats left
                               </motion.span>
                             )}
                           </div>
@@ -182,13 +187,13 @@ export default function EventsPage() {
                         {/* Details */}
                         <div className="px-5 py-4 flex-1 flex flex-col gap-2.5">
                           {[
-                            { icon: "📅", text: formatDate(event.date) },
-                            { icon: "🕐", text: event.time },
-                            { icon: "📍", text: event.location },
-                            { icon: "🎤", text: event.speaker },
+                            { key: "date", icon: <IconCalendar size={14} />, text: formatDate(event.date) },
+                            { key: "time", icon: <IconClock size={14} />, text: event.time },
+                            { key: "location", icon: <IconMapPin size={14} />, text: event.location },
+                            { key: "speaker", icon: <IconMic size={14} />, text: event.speaker },
                           ].map((d) => (
-                            <div key={d.icon} className="flex items-start gap-2">
-                              <span className="text-sm shrink-0 mt-px">{d.icon}</span>
+                            <div key={d.key} className="flex items-start gap-2.5">
+                              <span className="shrink-0 mt-px" style={{ color: "#8B55C8" }}>{d.icon}</span>
                               <span className="text-xs leading-snug" style={{ color: "#4B4465" }}>{d.text}</span>
                             </div>
                           ))}

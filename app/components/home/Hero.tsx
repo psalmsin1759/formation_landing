@@ -1,166 +1,232 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { EASE, lineReveal } from "@/app/lib/animations";
+import {
+  IconScale,
+  IconArrowRight,
+  IconPlay,
+  IconStar,
+  IconSparkle,
+} from "@/app/lib/icons";
+
+const headlineLines = ["The Ultimate", "Destination for"];
+
+const marqueeItems = [
+  "Legal Training",
+  "Business & Management",
+  "Compliance",
+  "Leadership",
+  "Finance & Tax",
+  "Technical Skills",
+];
+
+const avatarSeeds = [
+  { initials: "AO", bg: "#6B35A8" },
+  { initials: "CN", bg: "#4A2278" },
+  { initials: "TA", bg: "#8B55C8" },
+  { initials: "FE", bg: "#2E1350" },
+];
 
 export default function Hero() {
   return (
     <section
+      className="grain relative overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #2E1350 0%, #4A2278 50%, #6B35A8 100%)",
-        minHeight: "580px",
+        background:
+          "radial-gradient(1100px 620px at 82% -12%, rgba(107,53,168,0.55), transparent 62%), radial-gradient(900px 520px at -8% 112%, rgba(74,34,120,0.5), transparent 56%), #120A25",
       }}
-      className="relative overflow-hidden flex items-center"
     >
-      {/* Animated background blobs */}
-      <motion.div
-        className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10"
-        style={{ backgroundColor: "#D4AF37", transform: "translate(30%, -30%)" }}
-        animate={{ scale: [1, 1.15, 1], rotate: [0, 20, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      {/* Editorial column hairlines */}
+      <div
+        className="absolute inset-0 pointer-events-none hidden lg:block"
+        style={{
+          backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
+          backgroundSize: "calc(100% / 6) 100%",
+        }}
       />
+      {/* Gold aurora drift */}
       <motion.div
-        className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-10"
-        style={{ backgroundColor: "#8B55C8", transform: "translate(-30%, 30%)" }}
-        animate={{ scale: [1, 1.2, 1], rotate: [0, -15, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="absolute -top-32 right-[-10%] h-[480px] w-[480px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(212,175,55,0.22), transparent 65%)", filter: "blur(40px)" }}
+        animate={{ x: [0, -40, 0], y: [0, 30, 0] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-[2] max-w-7xl mx-auto px-6 pt-20 pb-20 lg:pt-24 lg:pb-24 grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-16 items-center">
         {/* Left */}
         <div>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-6"
-            style={{ backgroundColor: "rgba(212,175,55,0.2)", color: "#D4AF37", border: "1px solid rgba(212,175,55,0.3)" }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-[11px] font-semibold tracking-[0.14em] uppercase mb-8"
+            style={{
+              backgroundColor: "rgba(212,175,55,0.08)",
+              color: "#E5C961",
+              border: "1px solid rgba(212,175,55,0.25)",
+            }}
           >
-            <motion.span
-              animate={{ rotate: [0, 15, -15, 0] }}
-              transition={{ duration: 2.5, repeat: Infinity, delay: 1 }}
-            >
-              ⭐
-            </motion.span>
-            Trusted by 30,000+ Professionals Worldwide
+            <IconSparkle size={13} />
+            Trusted by 30,000+ professionals worldwide
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-            className="text-4xl lg:text-5xl font-bold text-white leading-tight mb-6"
-            style={{ fontFamily: "'Playfair Display', serif" }}
+          <h1
+            className="font-display font-bold text-white tracking-tight"
+            style={{ fontSize: "clamp(2.8rem, 6vw, 4.9rem)", lineHeight: 1.04 }}
           >
-            The Ultimate Destination for{" "}
-            <motion.span
-              style={{ color: "#D4AF37" }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-            >
-              Professional Excellence
-            </motion.span>
-          </motion.h1>
+            {headlineLines.map((line, i) => (
+              <span key={line} className="block overflow-hidden pb-1 -mb-1">
+                <motion.span
+                  className="block"
+                  custom={i}
+                  variants={lineReveal}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  {line}
+                </motion.span>
+              </span>
+            ))}
+            <span className="block overflow-hidden pb-2 -mb-2">
+              <motion.span
+                className="block italic font-medium"
+                style={{ color: "#D4AF37" }}
+                custom={2}
+                variants={lineReveal}
+                initial="hidden"
+                animate="visible"
+              >
+                Professional Excellence.
+              </motion.span>
+            </span>
+          </h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-base leading-relaxed mb-8"
-            style={{ color: "#C8B8E8" }}
+            transition={{ duration: 0.9, ease: EASE, delay: 0.55 }}
+            className="text-[15px] leading-relaxed mt-7 max-w-md"
+            style={{ color: "#B9A8DC" }}
           >
-            Expert-led training in law, business, and technical disciplines. Practical, real-world knowledge with industry-recognized certifications — designed for professionals who demand the best.
+            Expert-led training in law, business, and technical disciplines.
+            Practical, real-world knowledge with industry-recognized
+            certifications — designed for professionals who demand the best.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.55 }}
-            className="flex flex-col sm:flex-row gap-4"
+            transition={{ duration: 0.9, ease: EASE, delay: 0.7 }}
+            className="flex flex-col sm:flex-row gap-4 mt-10"
           >
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link
-                href="/courses"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-bold text-sm"
-                style={{ backgroundColor: "#D4AF37", color: "#1A1235" }}
+            <Link
+              href="/courses"
+              className="btn-sheen group inline-flex items-center justify-center gap-3 rounded-full pl-7 pr-2 py-2 font-bold text-sm transition-transform duration-300 hover:-translate-y-0.5"
+              style={{ backgroundColor: "#D4AF37", color: "#120A25" }}
+            >
+              Explore All Courses
+              <span
+                className="flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-400 group-hover:rotate-45"
+                style={{ backgroundColor: "#120A25", color: "#D4AF37" }}
               >
-                Explore All Courses
-                <motion.svg
-                  width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </motion.svg>
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link
-                href="/about"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm"
-                style={{ border: "1.5px solid rgba(255,255,255,0.4)", color: "#FFFFFF" }}
+                <IconArrowRight size={15} strokeWidth={2.2} />
+              </span>
+            </Link>
+            <Link
+              href="/about"
+              className="group inline-flex items-center justify-center gap-3 rounded-full px-7 py-3 font-semibold text-sm text-white transition-colors duration-300 hover:bg-white/[0.07]"
+              style={{ border: "1px solid rgba(255,255,255,0.25)" }}
+            >
+              <span
+                className="flex h-6 w-6 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
+                style={{ border: "1px solid rgba(255,255,255,0.35)" }}
               >
-                How It Works
-              </Link>
-            </motion.div>
+                <IconPlay size={9} />
+              </span>
+              How It Works
+            </Link>
           </motion.div>
 
-          {/* Trust badges */}
+          {/* Trust row */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.75, duration: 0.6 }}
-            className="flex flex-wrap items-center gap-6 mt-10 pt-8"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.15)" }}
+            transition={{ duration: 1, ease: EASE, delay: 0.95 }}
+            className="flex flex-wrap items-center gap-5 mt-12 pt-8"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}
           >
-            {[
-              { icon: "🏆", text: "Industry-recognized certs" },
-              { icon: "🎓", text: "Expert practitioners" },
-              { icon: "🌍", text: "Nigeria & Pan-Africa" },
-            ].map((badge, i) => (
-              <motion.div
-                key={badge.text}
-                className="flex items-center gap-2"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8 + i * 0.1 }}
-              >
-                <span>{badge.icon}</span>
-                <span className="text-xs font-medium" style={{ color: "#C8B8E8" }}>{badge.text}</span>
-              </motion.div>
-            ))}
+            <div className="flex -space-x-2.5">
+              {avatarSeeds.map((a) => (
+                <span
+                  key={a.initials}
+                  className="flex h-9 w-9 items-center justify-center rounded-full text-[10px] font-bold text-white ring-2"
+                  style={{ backgroundColor: a.bg, ["--tw-ring-color" as string]: "#120A25" }}
+                >
+                  {a.initials}
+                </span>
+              ))}
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <IconStar key={i} size={12} style={{ color: "#D4AF37" }} />
+                ))}
+                <span className="text-sm font-bold text-white ml-1">4.8</span>
+              </div>
+              <p className="text-xs mt-1" style={{ color: "#9B8AB8" }}>
+                From lawyers, executives & specialists in 60+ countries
+              </p>
+            </div>
           </motion.div>
         </div>
 
-        {/* Right: floating card */}
+        {/* Right: floating course card */}
         <motion.div
           className="relative hidden lg:block"
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 48 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: EASE, delay: 0.45 }}
         >
+          {/* Offset gold frame */}
+          <div
+            className="absolute rounded-3xl"
+            style={{
+              inset: "-14px -14px 42px 130px",
+              border: "1px solid rgba(212,175,55,0.25)",
+            }}
+            aria-hidden="true"
+          />
+
           <motion.div
-            className="rounded-2xl p-6 shadow-2xl"
-            style={{ backgroundColor: "#FFFFFF", maxWidth: "360px", marginLeft: "auto" }}
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="relative rounded-3xl p-7"
+            style={{
+              backgroundColor: "#FFFFFF",
+              maxWidth: "380px",
+              marginLeft: "auto",
+              boxShadow: "0 48px 90px -24px rgba(0,0,0,0.55)",
+            }}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           >
-            <div className="flex items-center gap-3 mb-4">
-              <motion.div
-                className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
-                style={{ backgroundColor: "#F3EEFF" }}
-                whileHover={{ rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 0.4 }}
+            <div className="flex items-center gap-4 mb-5">
+              <div
+                className="flex h-13 w-13 shrink-0 items-center justify-center rounded-2xl p-3"
+                style={{ backgroundColor: "#F3EEFF", color: "#6B35A8", width: "52px", height: "52px" }}
               >
-                ⚖️
-              </motion.div>
+                <IconScale size={26} />
+              </div>
               <div>
-                <p className="text-xs font-semibold" style={{ color: "#8B55C8" }}>BESTSELLER</p>
-                <h3 className="text-sm font-bold" style={{ color: "#1A1235" }}>Contract Drafting & Negotiation</h3>
+                <p className="text-[10px] font-bold tracking-[0.2em]" style={{ color: "#D4AF37" }}>
+                  BESTSELLER
+                </p>
+                <h3 className="font-display text-[15px] font-bold leading-snug" style={{ color: "#1A1235" }}>
+                  Contract Drafting &amp; Negotiation
+                </h3>
               </div>
             </div>
-            <div className="mb-3">
-              <div className="flex justify-between text-xs mb-1" style={{ color: "#7C7A99" }}>
+            <div className="mb-4">
+              <div className="flex justify-between text-xs mb-1.5" style={{ color: "#7C7A99" }}>
                 <span>Module 3 of 5</span>
                 <span style={{ color: "#6B35A8", fontWeight: 600 }}>60% complete</span>
               </div>
@@ -169,49 +235,77 @@ export default function Hero() {
                   className="progress-fill"
                   initial={{ width: 0 }}
                   animate={{ width: "60%" }}
-                  transition={{ delay: 1, duration: 1.2, ease: "easeOut" }}
+                  transition={{ delay: 1.3, duration: 1.4, ease: EASE }}
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between mt-4 pt-4" style={{ borderTop: "1px solid #E8E0F0" }}>
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between mt-5 pt-5" style={{ borderTop: "1px solid #E8E0F0" }}>
+              <div className="flex items-center gap-2.5">
                 <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                  className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold text-white"
                   style={{ backgroundColor: "#6B35A8" }}
                 >
                   AO
                 </div>
                 <div>
                   <p className="text-xs font-semibold" style={{ color: "#1A1235" }}>Barr. A. Okonkwo</p>
-                  <p className="text-xs" style={{ color: "#7C7A99" }}>Instructor</p>
+                  <p className="text-[11px]" style={{ color: "#7C7A99" }}>Lead Instructor</p>
                 </div>
               </div>
-              <span className="text-sm font-black" style={{ color: "#6B35A8" }}>₦300,000</span>
+              <span className="font-display text-base font-black" style={{ color: "#6B35A8" }}>
+                ₦300,000
+              </span>
             </div>
           </motion.div>
 
           {/* Floating badges */}
           <motion.div
-            className="absolute -top-4 -left-4 rounded-xl px-4 py-3 shadow-xl"
-            style={{ backgroundColor: "#D4AF37" }}
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            className="absolute -top-5 left-10 rounded-2xl px-5 py-3"
+            style={{ backgroundColor: "#D4AF37", boxShadow: "0 24px 48px -12px rgba(212,175,55,0.45)" }}
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
           >
-            <p className="text-xs font-black text-center" style={{ color: "#1A1235" }}>
-              30,000+<br /><span className="font-medium text-xs">Students</span>
-            </p>
+            <p className="font-display text-base font-black leading-none" style={{ color: "#120A25" }}>30,000+</p>
+            <p className="text-[10px] font-semibold tracking-wide mt-1" style={{ color: "#4A3A0E" }}>Students enrolled</p>
           </motion.div>
           <motion.div
-            className="absolute -bottom-4 -right-4 rounded-xl px-4 py-3 shadow-xl"
-            style={{ backgroundColor: "#2E1350" }}
-            animate={{ y: [0, 5, 0] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute -bottom-6 right-2 flex items-center gap-2.5 rounded-2xl px-5 py-3 backdrop-blur-md"
+            style={{
+              backgroundColor: "rgba(18,10,37,0.85)",
+              border: "1px solid rgba(212,175,55,0.3)",
+              boxShadow: "0 24px 48px -12px rgba(0,0,0,0.5)",
+            }}
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
           >
-            <p className="text-xs font-black text-center text-white">
-              4.8 ★<br /><span className="font-medium text-xs" style={{ color: "#C8B8E8" }}>Avg Rating</span>
-            </p>
+            <IconStar size={16} style={{ color: "#D4AF37" }} />
+            <div>
+              <p className="font-display text-base font-black leading-none text-white">4.8</p>
+              <p className="text-[10px] font-medium mt-0.5" style={{ color: "#9B8AB8" }}>Average rating</p>
+            </div>
           </motion.div>
         </motion.div>
+      </div>
+
+      {/* Bottom discipline marquee */}
+      <div className="relative z-[2] overflow-hidden py-5" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+        <div className="marquee-track items-center gap-10" style={{ "--marquee-duration": "36s" } as React.CSSProperties}>
+          {[0, 1].map((n) => (
+            <div key={n} className="flex shrink-0 items-center gap-10 pr-10">
+              {marqueeItems.map((item) => (
+                <span key={item} className="flex items-center gap-10">
+                  <span
+                    className="text-xs font-semibold uppercase tracking-[0.28em] whitespace-nowrap"
+                    style={{ color: "rgba(255,255,255,0.42)" }}
+                  >
+                    {item}
+                  </span>
+                  <IconSparkle size={11} style={{ color: "rgba(212,175,55,0.55)" }} />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -6,6 +6,7 @@ import StarRating from "@/app/components/shared/StarRating";
 import { courses } from "@/app/lib/data";
 import Link from "next/link";
 import { fadeUp, fadeLeft, fadeRight, scaleIn, staggerContainer, staggerFast, viewportConfig } from "@/app/lib/animations";
+import { IconBookOpen, IconAward, IconHeart, IconChart, IconSettings, IconCheck, IconZap, CategoryIcon } from "@/app/lib/icons";
 
 const enrolled = courses.slice(0, 3);
 const progressMap: Record<string, number> = {
@@ -70,11 +71,11 @@ export default function DashboardPage() {
           >
             <nav className="flex flex-col gap-1">
               {[
-                { icon: "📚", label: "My Learning", active: true },
-                { icon: "🏆", label: "Certificates", count: completedCount },
-                { icon: "❤️", label: "Wishlist" },
-                { icon: "📊", label: "My Progress" },
-                { icon: "⚙️", label: "Settings" },
+                { icon: <IconBookOpen size={16} />, label: "My Learning", active: true },
+                { icon: <IconAward size={16} />, label: "Certificates", count: completedCount },
+                { icon: <IconHeart size={16} />, label: "Wishlist" },
+                { icon: <IconChart size={16} />, label: "My Progress" },
+                { icon: <IconSettings size={16} />, label: "Settings" },
               ].map((item) => (
                 <motion.button
                   key={item.label}
@@ -133,10 +134,10 @@ export default function DashboardPage() {
               viewport={viewportConfig}
             >
               {[
-                { icon: "📖", value: enrolled.length, label: "Courses", bg: "#F3EEFF", color: "#6B35A8" },
-                { icon: "✅", value: completedCount, label: "Completed", bg: "#E8F5E9", color: "#2E7D32" },
-                { icon: "🏆", value: completedCount, label: "Certificates", bg: "#FFF8E1", color: "#F57F17" },
-                { icon: "⚡", value: "3", label: "Day Streak", bg: "#F3E5F5", color: "#7B1FA2" },
+                { icon: <IconBookOpen size={18} />, value: enrolled.length, label: "Courses", bg: "#F3EEFF", color: "#6B35A8" },
+                { icon: <IconCheck size={18} />, value: completedCount, label: "Completed", bg: "#E8F5E9", color: "#2E7D32" },
+                { icon: <IconAward size={18} />, value: completedCount, label: "Certificates", bg: "#FFF8E1", color: "#F57F17" },
+                { icon: <IconZap size={18} />, value: "3", label: "Day Streak", bg: "#F3E5F5", color: "#7B1FA2" },
               ].map((c) => (
                 <motion.div
                   key={c.label}
@@ -191,7 +192,7 @@ export default function DashboardPage() {
                         whileHover={{ scale: 1.08, rotate: -5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        {course.category === "Legal Training" ? "⚖️" : course.category === "Business & Management" ? "💼" : "💻"}
+                        <span style={{ color: "#6B35A8" }}><CategoryIcon category={course.category} size={22} /></span>
                       </motion.div>
 
                       <div className="flex-1 min-w-0">
@@ -330,7 +331,7 @@ export default function DashboardPage() {
                         className="w-12 h-12 rounded-lg flex items-center justify-center text-xl shrink-0"
                         style={{ backgroundColor: "#F3EEFF" }}
                       >
-                        {course.category === "Business & Management" ? "💼" : "📊"}
+                        <span style={{ color: "#6B35A8" }}><CategoryIcon category={course.category} size={20} /></span>
                       </div>
                       <div>
                         <h3 className="text-sm font-bold leading-snug mb-1" style={{ color: "#1A1235" }}>{course.title}</h3>

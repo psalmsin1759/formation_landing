@@ -6,6 +6,7 @@ import StarRating from "@/app/components/shared/StarRating";
 import { instructors } from "@/app/lib/data";
 import Link from "next/link";
 import { fadeUp, fadeLeft, fadeRight, scaleIn, staggerContainer, staggerFast, viewportConfig } from "@/app/lib/animations";
+import { IconScale, IconGlobe, IconAward, IconRefresh, IconMail, IconMapPin, IconClock } from "@/app/lib/icons";
 
 export default function AboutPage() {
   return (
@@ -82,10 +83,10 @@ export default function AboutPage() {
               viewport={viewportConfig}
             >
               {[
-                { icon: "⚖️", title: "Practitioner-Led", desc: "Every course is designed and delivered by active practitioners at the top of their field." },
-                { icon: "🌍", title: "Global Reach", desc: "Learners from 60+ countries access our programs in English and French." },
-                { icon: "📜", title: "Accredited Certs", desc: "Our certifications are recognised by leading firms, chambers, and employers." },
-                { icon: "🔄", title: "Continuously Updated", desc: "Courses are updated regularly to reflect legislative changes and new case law." },
+                { icon: <IconScale size={20} />, title: "Practitioner-Led", desc: "Every course is designed and delivered by active practitioners at the top of their field." },
+                { icon: <IconGlobe size={20} />, title: "Global Reach", desc: "Learners from 60+ countries access our programs in English and French." },
+                { icon: <IconAward size={20} />, title: "Accredited Certs", desc: "Our certifications are recognised by leading firms, chambers, and employers." },
+                { icon: <IconRefresh size={20} />, title: "Continuously Updated", desc: "Courses are updated regularly to reflect legislative changes and new case law." },
               ].map((v) => (
                 <motion.div
                   key={v.title}
@@ -95,13 +96,12 @@ export default function AboutPage() {
                   className="p-5 rounded-2xl"
                   style={{ backgroundColor: "#FFFFFF", border: "1px solid #E8E0F0" }}
                 >
-                  <motion.div
-                    className="text-3xl mb-3"
-                    whileHover={{ scale: 1.2, rotate: -5 }}
-                    transition={{ duration: 0.2 }}
+                  <div
+                    className="mb-4 flex h-11 w-11 items-center justify-center rounded-full"
+                    style={{ backgroundColor: "#F3EEFF", color: "#6B35A8" }}
                   >
                     {v.icon}
-                  </motion.div>
+                  </div>
                   <h3 className="text-sm font-bold mb-1" style={{ color: "#1A1235" }}>{v.title}</h3>
                   <p className="text-xs leading-relaxed" style={{ color: "#7C7A99" }}>{v.desc}</p>
                 </motion.div>
@@ -241,22 +241,21 @@ export default function AboutPage() {
                 viewport={viewportConfig}
               >
                 {[
-                  { icon: "📧", label: "hello@formationexceptionelle.com" },
-                  { icon: "🌍", label: "Lagos · Abuja · Port Harcourt" },
-                  { icon: "🕐", label: "Monday – Friday, 9:00 – 18:00 CET" },
+                  { icon: <IconMail size={16} />, label: "hello@formationexceptionelle.com" },
+                  { icon: <IconMapPin size={16} />, label: "Lagos · Abuja · Port Harcourt" },
+                  { icon: <IconClock size={16} />, label: "Monday – Friday, 9:00 – 18:00 CET" },
                 ].map((c) => (
                   <motion.div
                     key={c.label}
                     variants={fadeUp}
                     className="flex items-center gap-3"
                   >
-                    <motion.span
-                      className="text-lg"
-                      whileHover={{ scale: 1.2 }}
-                      transition={{ duration: 0.2 }}
+                    <span
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+                      style={{ backgroundColor: "#F3EEFF", color: "#6B35A8" }}
                     >
                       {c.icon}
-                    </motion.span>
+                    </span>
                     <span className="text-sm" style={{ color: "#4B4465" }}>{c.label}</span>
                   </motion.div>
                 ))}

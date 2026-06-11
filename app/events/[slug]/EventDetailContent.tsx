@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import type { Event } from "@/app/lib/data";
 import { fadeUp, fadeLeft, fadeRight, scaleIn, staggerFast, viewportConfig } from "@/app/lib/animations";
+import { IconMonitor, IconWrench, IconMic, IconBookOpen, IconAward, IconCalendar, IconClock, IconMapPin } from "@/app/lib/icons";
 
 const typeColors: Record<string, { bg: string; text: string; border: string }> = {
   Webinar:     { bg: "rgba(107,53,168,0.12)", text: "#6B35A8", border: "rgba(107,53,168,0.25)" },
@@ -13,8 +14,12 @@ const typeColors: Record<string, { bg: string; text: string; border: string }> =
   Masterclass: { bg: "rgba(212,175,55,0.18)", text: "#8B5E00", border: "rgba(212,175,55,0.35)" },
 };
 
-const typeIcons: Record<string, string> = {
-  Webinar: "💻", Workshop: "🛠️", Conference: "🎤", Seminar: "📖", Masterclass: "🏆",
+const typeIcons: Record<string, React.ReactNode> = {
+  Webinar: <IconMonitor size={13} />,
+  Workshop: <IconWrench size={13} />,
+  Conference: <IconMic size={13} />,
+  Seminar: <IconBookOpen size={13} />,
+  Masterclass: <IconAward size={13} />,
 };
 
 function formatDate(iso: string) {
@@ -91,7 +96,7 @@ export default function EventDetailContent({ event, related }: { event: Event; r
               {/* Badges */}
               <div className="flex flex-wrap gap-2 mb-5">
                 <span
-                  className="text-xs font-bold px-3 py-1.5 rounded-full"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full"
                   style={{ backgroundColor: tc.bg, color: tc.text, border: `1px solid ${tc.border}` }}
                 >
                   {typeIcons[event.type]} {event.type}
@@ -109,7 +114,7 @@ export default function EventDetailContent({ event, related }: { event: Event; r
                     animate={{ opacity: [1, 0.6, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    🔥 Only {event.seatsLeft} seats left
+                    Only {event.seatsLeft} seats left
                   </motion.span>
                 )}
               </div>
@@ -127,10 +132,10 @@ export default function EventDetailContent({ event, related }: { event: Event; r
               {/* Key details row */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {[
-                  { icon: "📅", label: "Date", value: formatDate(event.date) },
-                  { icon: "🕐", label: "Time", value: event.time },
-                  { icon: isOnline ? "💻" : "📍", label: isOnline ? "Format" : "Venue", value: event.location },
-                  { icon: "🎤", label: "Speaker", value: event.speaker },
+                  { icon: <IconCalendar size={15} />, label: "Date", value: formatDate(event.date) },
+                  { icon: <IconClock size={15} />, label: "Time", value: event.time },
+                  { icon: isOnline ? <IconMonitor size={15} /> : <IconMapPin size={15} />, label: isOnline ? "Format" : "Venue", value: event.location },
+                  { icon: <IconMic size={15} />, label: "Speaker", value: event.speaker },
                 ].map((d) => (
                   <div
                     key={d.label}
@@ -466,7 +471,7 @@ function RegistrationCard({
             animate={{ opacity: [1, 0.6, 1] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           >
-            🔥 Only {event.seatsLeft} seats remaining
+            Only {event.seatsLeft} seats remaining
           </motion.p>
         )}
       </div>
@@ -476,12 +481,12 @@ function RegistrationCard({
 
         <div className="mt-5 mb-4 flex flex-col gap-2.5 text-xs" style={{ color: "#4B4465" }}>
           {[
-            { icon: "📅", text: new Date(event.date).toLocaleDateString("en-NG", { day: "numeric", month: "long", year: "numeric" }) },
-            { icon: "🕐", text: event.time },
-            { icon: event.location.toLowerCase().includes("online") ? "💻" : "📍", text: event.location },
+            { key: "date", icon: <IconCalendar size={14} />, text: new Date(event.date).toLocaleDateString("en-NG", { day: "numeric", month: "long", year: "numeric" }) },
+            { key: "time", icon: <IconClock size={14} />, text: event.time },
+            { key: "location", icon: event.location.toLowerCase().includes("online") ? <IconMonitor size={14} /> : <IconMapPin size={14} />, text: event.location },
           ].map((d) => (
-            <div key={d.icon} className="flex items-start gap-2">
-              <span className="shrink-0">{d.icon}</span>
+            <div key={d.key} className="flex items-start gap-2.5">
+              <span className="shrink-0" style={{ color: "#8B55C8" }}>{d.icon}</span>
               <span>{d.text}</span>
             </div>
           ))}
